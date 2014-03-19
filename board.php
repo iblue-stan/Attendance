@@ -11,7 +11,9 @@ session_start();?>
 	     <br>
 <div class="accordion">
 <?php
-	require_once("board/board_connect.inc.php");
+    include("mysql_connect.inc.php");
+	$sql = "select * from board";
+	$r = mysql_query($sql);
     while($s = mysql_fetch_assoc($r))  //資料自行判斷做到無值時自動停止
 	{?>
 <div>

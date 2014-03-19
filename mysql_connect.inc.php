@@ -2,7 +2,7 @@
 <?php
 //資料庫設定
 //資料庫位置
-$db_server = "localhost:";
+$db_server = "localhost";
 //資料庫名稱
 $db_name = "qr";
 //資料庫管理者帳號
