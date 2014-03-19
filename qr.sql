@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.1.8
 -- http://www.phpmyadmin.net
 --
 -- 主機: localhost
--- 產生日期: 2014 年 03 月 16 日 04:47
--- 伺服器版本: 5.6.12-log
--- PHP 版本: 5.4.12
+-- 產生時間： 2014 年 03 月 19 日 15:50
+-- 伺服器版本: 5.5.36-MariaDB-log
+-- PHP 版本： 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- 資料庫: `qr`
+-- 資料庫： `qr`
 --
-CREATE DATABASE IF NOT EXISTS `qr` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `qr`;
 
 -- --------------------------------------------------------
 
 --
--- 表的結構 `board`
+-- 資料表結構 `board`
 --
 
 CREATE TABLE IF NOT EXISTS `board` (
@@ -37,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `board` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- 轉存資料表中的資料 `board`
+-- 資料表的匯出資料 `board`
 --
 
 INSERT INTO `board` (`id`, `title`, `content`, `date`) VALUES
@@ -48,7 +46,7 @@ INSERT INTO `board` (`id`, `title`, `content`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的結構 `user`
+-- 資料表結構 `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -57,30 +55,31 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_pwd` int(11) NOT NULL COMMENT '預設生日',
   `user_name` varchar(50) NOT NULL COMMENT '姓名',
   `user_class` varchar(50) NOT NULL,
+  `user_join` date NOT NULL,
   `user_permission` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
--- 轉存資料表中的資料 `user`
+-- 資料表的匯出資料 `user`
 --
 
-INSERT INTO `user` (`id`, `user_phone`, `user_pwd`, `user_name`, `user_class`, `user_permission`) VALUES
-(1, '0958', 1228, '大大', '0', 1),
-(13, '0923353569', 1228, '陳怡萍', '1', 2),
-(14, '0923835218', 123, 'Sasaki Ando', '2', 2),
-(15, '0928315053', 123, '張睿岑', '3', 2),
-(16, '0928403376 ', 123, '林柏瀚', '1', 2),
-(17, '0988600970', 123, '李柏宏', '3', 2),
-(18, '0988106795', 123, '劉家伶', '2', 2),
-(19, '0988380636', 123, '游錦雯', '2', 2),
-(20, '0928829809', 123, '張宇綸 ', '3', 2),
-(21, '0975785791 ', 123, '陳薇婷', '2', 2);
+INSERT INTO `user` (`id`, `user_phone`, `user_pwd`, `user_name`, `user_class`, `user_join`, `user_permission`) VALUES
+(1, '0958', 1228, '大大', '0', '0000-00-00', 1),
+(13, '0923353569', 1228, '陳怡萍', '1', '0000-00-00', 2),
+(14, '0923835218', 123, 'Sasaki Ando', '2', '0000-00-00', 2),
+(15, '0928315053', 123, '張睿岑', '3', '0000-00-00', 2),
+(16, '0928403376 ', 123, '林柏瀚', '1', '0000-00-00', 2),
+(17, '0988600970', 123, '李柏宏', '3', '0000-00-00', 2),
+(18, '0988106795', 123, '劉家伶', '2', '0000-00-00', 2),
+(19, '0988380636', 123, '游錦雯', '2', '0000-00-00', 2),
+(20, '0928829809', 123, '張宇綸 ', '3', '0000-00-00', 2),
+(21, '0975785791 ', 123, '陳薇婷', '2', '0000-00-00', 2);
 
 -- --------------------------------------------------------
 
 --
--- 表的結構 `var`
+-- 資料表結構 `var`
 --
 
 CREATE TABLE IF NOT EXISTS `var` (
@@ -93,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `var` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- 轉存資料表中的資料 `var`
+-- 資料表的匯出資料 `var`
 --
 
 INSERT INTO `var` (`pk`, `var_phone`, `var_time`, `id`) VALUES
@@ -110,7 +109,7 @@ INSERT INTO `var` (`pk`, `var_phone`, `var_time`, `id`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的結構 `vk`
+-- 資料表結構 `vk`
 --
 
 CREATE TABLE IF NOT EXISTS `vk` (
@@ -127,22 +126,12 @@ CREATE TABLE IF NOT EXISTS `vk` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- 轉存資料表中的資料 `vk`
+-- 資料表的匯出資料 `vk`
 --
 
 INSERT INTO `vk` (`pk`, `l_phone`, `l_start`, `l_end`, `l_condition`, `l_memo`, `l_check`, `id`) VALUES
-(5, '', '2014-03-12 08:00:00', '2014-03-12 12:00:00', '5', '@@', 1, 20),
-(6, '', '2014-03-13 13:00:00', '2014-03-13 18:00:00', '5', '><"', 1, 20),
-(7, '', '2014-03-16 08:00:00', '2014-03-16 09:00:00', '5', '= =', 1, 17),
-(9, '', '2014-03-12 09:00:00', '2014-03-12 08:00:00', '5', '', 1, 13),
-(10, '', '2014-03-14 09:00:00', '2014-03-14 13:00:00', '5', '', 1, 13),
-(13, '0923353569', '2014-03-15 13:00:00', '2014-03-15 17:00:00', '3', '有事有事', 0, 13),
-(14, '0923353569', '2014-03-15 13:00:00', '2014-03-15 17:00:00', '3', '有事有事', 0, 13),
-(15, '0923353569', '2014-03-15 13:00:00', '2014-03-15 17:00:00', '3', '有事有事', 0, 13),
-(16, '', '2014-03-17 08:00:00', '2014-03-17 17:00:00', '3', 'jkhjghfxghjioihhjkl;', 0, 928829809),
-(17, '', '2014-03-17 08:00:00', '2014-03-17 17:00:00', '3', 'jkhjghfxghjioihhjkl;', 0, 928829809),
-(18, '', '2014-03-17 10:22:00', '2014-03-17 18:00:00', '4', 'test', 0, 928829809),
-(19, '0928829809', '2014-03-17 11:00:00', '2014-03-17 15:00:00', '2', 'test', 0, 20);
+(18, '0928829809', '2014-03-12 15:00:00', '2014-03-12 17:00:00', '1', 'ddweeqw', 0, 20),
+(19, '0928829809', '2014-03-12 12:00:00', '2014-03-12 17:00:00', '1', 'ddweeqw', 0, 20);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
