@@ -2,8 +2,33 @@
 session_start();
 date_default_timezone_set('Asia/Taipei'); 
 $id=$_GET['id'];  
+include_once("trial.php");
 
 ?>
+
+<?php 
+
+$sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
+from vk 
+where `l_condition` = 6 AND id=20 AND l_check=1";
+
+$total = "";
+$special_q = mysql_query($sql_s);
+while ( $s_row = @mysql_fetch_assoc($special_q) ){
+  $total += $s_row['diff'];
+  }
+?>
+
+<?php 
+
+$total = round($total / 24,0);
+echo "已請特休".$total;
+ ?>
+
+
+
+
+
 
 <!doctype html>
 <html lang="en">
@@ -25,7 +50,12 @@ $id=$_GET['id'];
 
         <th colspan = 2><center>請假 </th>
       </center>
-      <tr><td>日期</td><td><input type="text" id="datetimepicker1" name=l_start> 至 <input type="text" id="datetimepicker2" name=l_end> </td></tr>
+      <tr><td>日期</td><td><input type="text" id="datetimepicker1" name=l_start> 至 <input type="text" id="datetimepicker2" name=l_end> <?php 
+        echo "  您的特休天數 ".$sepecial." 天";
+        echo "已請特休".$total." 天";
+        $QQQQQQQQQQQ = $sepecial - $total;
+        echo "餘".$QQQQQQQQQQQ." 天";
+       ?></td></tr>
 
       <tr><td>事由</td><td>
         <select name = l_condition>
@@ -34,7 +64,7 @@ $id=$_GET['id'];
           <option value=3>事</option>
           <option value=4>病</option>
           <option value=5>生理</option>
-          <option value=6>其他</option>
+          <option value=6>特休</option>
 
         </select>
       </td></tr>

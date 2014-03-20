@@ -210,7 +210,7 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
     if ($l_row['l_condition'] == 3) echo "事";
     if ($l_row['l_condition'] == 4) echo "病";
     if ($l_row['l_condition'] == 5) echo "生理";
-    if ($l_row['l_condition'] == 6) echo "其他";
+    if ($l_row['l_condition'] == 6) echo "特休";
 
       ?></td>
   <td><?php echo $l_row['l_memo'];?></td>
@@ -233,3 +233,22 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<?php 
+
+$sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
+from vk 
+where `l_condition` = 6 AND id=20 AND l_check=1";
+
+$total = "";
+$special_q = mysql_query($sql_s);
+while ( $s_row = @mysql_fetch_assoc($special_q) ){
+  $total += $s_row['diff'];
+  }
+?>
+
+<?php 
+
+$total = round($total / 24,0);
+echo "已請特休".$total."天";
+ ?>
