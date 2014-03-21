@@ -10,7 +10,7 @@ include_once("trial.php");
 
 $sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
 from vk 
-where `l_condition` = 6 AND id=20 AND l_check=1";
+where `l_condition` = 6 AND id=$id AND l_check=1";
 
 $total = "";
 $special_q = mysql_query($sql_s);

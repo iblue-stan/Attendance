@@ -34,6 +34,3 @@ if ($sepecial > 30) $sepecial = 30;
 // echo "年資".$time_diff."年<br>";
 // echo "特休".$sepecial."天";
  ?>
-
-
-SELECT timediff(l_end,l_start) AS diff FROM `vk` WHERE id=20

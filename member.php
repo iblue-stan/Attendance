@@ -226,19 +226,14 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
 </tbody>
 </table>
 
-
-
-  <!--JS-->
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
 
 <?php 
 
 $sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
-from vk 
-where `l_condition` = 6 AND id=20 AND l_check=1";
+from vk INNER JOIN user ON vk.id=user.id
+where `l_condition` = 6 AND user_phone=$id AND l_check=1";
 
 $total = "";
 $special_q = mysql_query($sql_s);
