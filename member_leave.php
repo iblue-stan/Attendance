@@ -1,10 +1,14 @@
-<?php 
-session_start();
+<?php session_start(); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
 date_default_timezone_set('Asia/Taipei'); 
 $id=$_GET['id'];  
 include_once("trial.php");
 
 ?>
+
+
+
 
 <?php 
 
@@ -103,5 +107,3 @@ echo "已請特休".$total;
 });</script>
 
 </html>
-
-

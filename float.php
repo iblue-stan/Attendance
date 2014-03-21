@@ -42,8 +42,10 @@
           <ul class="nav navbar-nav navbar-right">
 
 			<li></li>
+      <li><a href="member.php">查詢</a></li>
             <li><a href="member_leave.php?id=<?php echo $_SESSION['id'];?>">請假</a></li>
-			<li><a href="member.php">查詢</a></li>
+           <li> <a href='M_update.php?user_phone=<?php echo $_SESSION['username']; ?>'>修改密碼</a></li>
+			
 			<li><a href="board.php">公告欄</a></li>
             <li class="active"><a href="logout.php">登出</a></li>
           </ul>

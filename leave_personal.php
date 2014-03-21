@@ -18,7 +18,9 @@ include("mysql_connect.inc.php");
 
 <?php 
 $id = $_SESSION['username'];
+
 $working_time = "08:30";
+$working_outtime = "16:30";
 
 $pick_year = "";
 $pick_month = "";
@@ -120,8 +122,10 @@ $var_last =  date('Y-m-d H:i',strtotime($v_row['var_last']));
 
 $clock_in_time = strtotime(date('H:i',strtotime($v_row['var_first'])));
 $clock_on_time = strtotime($working_time);
+$clock_out_time = strtotime($working_outtime);
 
 $time_diff = round(abs($clock_in_time - $clock_on_time) / 60,2);
+$time_outdiff = round(abs($clock_in_time - $clock_out_time) / 60,2);
 
 if ($time_diff >= 60) {
   $HHH = intval($time_diff/60);
@@ -131,6 +135,17 @@ if ($time_diff >= 60) {
 }else {
   $MMM = $time_diff%60;
   $late = '遲到 '.$MMM.'分';
+}
+
+
+if ($time_outdiff <= 60) {
+  $HHH = intval($time_outdiff/60);
+  $MMM = $time_outdiff%60;
+
+  $lateout = '早退 '.$HHH.'小時'.$MMM.'分';
+}else {
+  $MMM = $time_outdiff%60;
+  $lateout = '早退 '.$MMM.'分';
 }
 
 ?>
@@ -145,12 +160,22 @@ if ($time_diff >= 60) {
   <td><?php echo $var_first ;?></td>
   <td><?php echo $var_last ;?></td>
   <td>
-  <?php 
-  if(date('H:i:s',strtotime($v_row['var_first'])) <= $working_time) {
-    echo '準時';
+ <?php 
+  if(date('H:i:s',strtotime($v_row['var_first'])) <= $working_time ) {
+    echo '準時上班';
   }else {
     echo $late;
   }
+
+  ?>
+
+    <?php 
+  if(date('H:i:s',strtotime($v_row['var_last'])) > $working_outtime ) {
+    echo '準時下班';
+  }else {
+    echo $lateout;
+  }
+
   ?>
   </td>
   </tr>

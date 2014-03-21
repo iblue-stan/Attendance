@@ -45,6 +45,8 @@
             <li><a href="leave_personal.php">出勤紀錄</a></li>
 			<li><a href="admin.php">員工管理</a></li>
 			<li><a href="register.php">新增員工</a></li>
+			<li><a href="board_select.php">公告管理</a></li>
+			<li><a href="board_add.php">新增公告</a></li>
             <li class="active"><a href="logout.php">登出</a></li>
           </ul>
         </div><!--/.nav-collapse -->
