@@ -229,6 +229,7 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
     if ($l_row['l_condition'] == 3) echo "事";
     if ($l_row['l_condition'] == 4) echo "病";
     if ($l_row['l_condition'] == 5) echo "生理";
+    if ($l_row['l_condition'] == 6) echo "特休";
 
       ?></td>
   <td><?php echo $l_row['l_memo'];?></td>
