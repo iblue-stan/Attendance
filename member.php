@@ -17,6 +17,7 @@ include("float.php");
 include("mysql_connect.inc.php");
 
 $working_time = "08:30";
+$working_outtime = "16:30";
 
 $sql = "SELECT id, user_name FROM user WHERE user_phone = $id";
 $getID_sql = mysql_query($sql);
@@ -62,7 +63,7 @@ if (!empty($_POST['pick_day'])) {
 <form action = "member.php" method = post>
 輸入日期：<input type="text" size="4" name="pick_year" value="<?php echo $pick_year ?>">年
 <input type="text" size="4" name="pick_month" value="<?php echo $pick_month ?>">月
-<input type="text" size="4" name="pick_day" value="<?php echo $pick_day ?>">	
+<input type="text" size="4" name="pick_day" value="<?php echo $pick_day ?>">  
 <input class="btn btn-default" type="submit" value="送出">
 
 </form>
@@ -102,10 +103,15 @@ $var_last =  date('Y-m-d H:i',strtotime($v_row['var_last']));
 
 
 $clock_in_time = strtotime(date('H:i',strtotime($v_row['var_first'])));
+$clock_uout_time = strtotime(date('H:i',strtotime($v_row['var_last'])));
+
 $clock_on_time = strtotime($working_time);
+$clock_out_time = strtotime($working_outtime);
 
 $time_diff = round(abs($clock_in_time - $clock_on_time) / 60,2);
+$time_outdiff = round(abs($clock_uout_time - $clock_out_time) / 60,2);
 
+//遲到
 if ($time_diff >= 60) {
   $HHH = intval($time_diff/60);
   $MMM = $time_diff%60;
@@ -114,6 +120,28 @@ if ($time_diff >= 60) {
 }else {
   $MMM = $time_diff%60;
   $late = '遲到 '.$MMM.'分';
+}
+
+//早退
+if ($time_outdiff >=  60) {
+  $HHH = intval($time_outdiff/60);
+  $MMM = $time_outdiff%60;
+
+  $lateout = '早退 '.$HHH.'小時'.$MMM.'分';
+}else {
+  $MMM = $time_outdiff%60;
+  $lateout = '早退 '.$MMM.'分';
+}
+
+//加班
+if ($time_outdiff >=  60) {
+  $HHH = intval($time_outdiff/60);
+  $MMM = $time_outdiff%60;
+
+  $overtime = '加班 '.$HHH.'小時'.$MMM.'分';
+}else {
+  $MMM = $time_outdiff%60;
+  $overtime = '加班 '.$MMM.'分';
 }
 
 ?>
@@ -128,12 +156,23 @@ if ($time_diff >= 60) {
   <td><?php echo $var_first ;?></td>
   <td><?php echo $var_last ;?></td>
   <td>
-  <?php 
-  if(date('H:i:s',strtotime($v_row['var_first'])) <= $working_time) {
-    echo '準時';
+
+ <?php 
+  if(date('H:i:s',strtotime($v_row['var_first'])) <= $working_time ) {
+    echo '準時上班';
   }else {
     echo $late;
   }
+
+  ?>
+
+    <?php 
+  if(date('H:i:s',strtotime($v_row['var_last'])) >= $working_outtime ) {
+    echo $overtime;
+  }else {
+    echo $lateout;
+  }
+
   ?>
   </td>
   </tr>
@@ -154,12 +193,33 @@ $leave = mysql_query($sql_l);
 
 ?>
 
+<?php //我是特休
+
+$sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
+from vk INNER JOIN user ON vk.id=user.id
+where `l_condition` = 6 AND user_phone=$id AND l_check=1";
+
+$total = "";
+$special_q = mysql_query($sql_s);
+
+while ( $s_row = @mysql_fetch_assoc($special_q) ){
+  $total += $s_row['diff'];
+  }
+?>
+
+
+
         </tbody>
 </table>
 
 <table class="table" >
         <thead>
-          <tr><th>請假狀況</th></tr>
+          <tr><th>請假狀況</th><th><?php 
+
+$total = round($total / 24,0);
+echo "已請特休".$total."天";
+
+ ?></th></tr>
           <tr>
             <th>電話</th>
             <th>姓名</th>
@@ -229,21 +289,3 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
 </body>
 </html>
 
-<?php 
-
-$sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
-from vk INNER JOIN user ON vk.id=user.id
-where `l_condition` = 6 AND user_phone=$id AND l_check=1";
-
-$total = "";
-$special_q = mysql_query($sql_s);
-while ( $s_row = @mysql_fetch_assoc($special_q) ){
-  $total += $s_row['diff'];
-  }
-?>
-
-<?php 
-
-$total = round($total / 24,0);
-echo "已請特休".$total."天";
- ?>

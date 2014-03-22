@@ -1,10 +1,14 @@
-<?php 
-session_start();
+<?php session_start(); ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
 date_default_timezone_set('Asia/Taipei'); 
 $id=$_GET['id'];  
 include_once("trial.php");
 
 ?>
+
+
+
 
 <?php 
 
@@ -50,27 +54,38 @@ echo "已請特休".$total;
 
         <th colspan = 2><center>請假 </th>
       </center>
-      <tr><td>日期</td><td><input type="text" id="datetimepicker1" name=l_start> 至 <input type="text" id="datetimepicker2" name=l_end> <?php 
-        echo "  您的特休天數 ".$sepecial." 天";
-        echo "已請特休".$total." 天";
+      <tr><td>日期</td>		
+		<td><div class="form-group"><input type="text" id="datetimepicker1" name=l_start>
+			～ <input type="text" id="datetimepicker2" name=l_end> 
+
+
+        <?php 
+        
+        echo "  您的特休天數 ".$sepecial." 天 |";
+        echo " 已請".$total." 天 |";
         $QQQQQQQQQQQ = $sepecial - $total;
-        echo "餘".$QQQQQQQQQQQ." 天";
-       ?></td></tr>
+        echo " 餘".$QQQQQQQQQQQ." 天";
+       ?>
+
+     </td></tr>
 
       <tr><td>事由</td><td>
-        <select name = l_condition>
-          <option value=1>婚</option>
-          <option value=2>喪</option>
-          <option value=3>事</option>
-          <option value=4>病</option>
-          <option value=5>生理</option>
-          <option value=6>特休</option>
+        <select  class="form-control" name = l_condition>
+          <option value=1>婚假</option>
+          <option value=2>喪假</option>
+          <option value=3>事假</option>
+          <option value=4>病假</option>
+          <option value=5>生理假</option>
+          <option value=6>特休假</option>
 
         </select>
       </td></tr>
 
-      <tr><td>留言</td><td><textarea name = 'l_other' cols= 80 rows=10 ></textarea> </td></tr>
-      <tr><td colspan=2><input type = submit value = 送出> <input type = reset value = 取消> </td></tr>
+      <tr><td>備註</td><td><textarea  class="form-control" name = 'l_other' cols= 80 rows=10 ></textarea> 
+				| 喪假請備註幾等親 | 婚假最多可請7日 |
+				</td></tr>
+      <tr><td colspan=2><input class="btn btn-default" type = submit value = 送出> 
+						<input class="btn btn-default" type = reset value = 取消> </td></tr>
       <input type = hidden name = 'id' value = '<?php echo $id ?>'> 
      
     </table>
@@ -103,5 +118,3 @@ echo "已請特休".$total;
 });</script>
 
 </html>
-
-

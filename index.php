@@ -20,8 +20,10 @@ if(empty($_SESSION['username'])){
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> 記住我
         </label>
+        <label class="checkbox">
 		<input type="checkbox" id="password" name="password" onclick="pwdshow(this);">顯示/隱藏密碼</input> |
 		<a href="mailto:admin@gmail.com?subject=密碼重設" style="text-decoration:none;">忘記密碼?</a>
+    </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
       </form>
     </div>	

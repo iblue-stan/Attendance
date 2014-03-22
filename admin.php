@@ -14,6 +14,7 @@
   include_once("fixed.php");
   include_once("cklv.php");
   include("mysql_connect.inc.php");
+
   ?>
 
 <br>
@@ -28,7 +29,9 @@
         <th>姓名</th>
         <th>部門</th>
         <th>權限</th>
+        <th>入社日期</th>
         <th>動作</th>
+
       </tr>
     </thead>
 
@@ -52,6 +55,8 @@
           <td><?php 
                 if ($row['user_permission'] == 1) echo "管理員";
                 if ($row['user_permission'] == 2) echo "員工"; ?></td>
+
+          <td><?php echo $row['user_join'] ?></td>
           <td>
               <a class="btn btn-default" href='update.php?user_phone=<?php echo $row['user_phone'] ?>'>Edit</a>
               <a class="btn btn-danger" href='delete.php?user_phone=<?php echo $row['user_phone'] ?>'>Delete</a>

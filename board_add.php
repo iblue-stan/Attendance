@@ -16,9 +16,9 @@
 <br>
 <form name="form" method="post" action="board_response.php">
 <center><table class="table table-condensed" border="1">
-	<tr><td>主題：<td><input type="text" name="title" size="64" />
-	<tr><td>內容：<td><textarea name="content" id="editor" class="ckeditor" cols="70" rows="10"></textarea>
-	<tr><td><td><input type="submit" name="button" value="確定" />
+	<tr><td>主題：<td><input class="form-control" type="text" name="title" size="64" />
+	<tr><td>內容：<td><textarea name="content" id="editor" class="ckeditor" cols="70" rows="20"></textarea>
+	<tr><td><td><input class="btn btn-default" type="submit" name="button" value="確定" />
 </table></center>
 </form>
 </body>
