@@ -16,6 +16,52 @@ include("mysql_connect.inc.php");
   <?php   include_once("fixed.php");  ?>
 <a class="btn btn-primary" href='admin.php' role='botton'>Back</a>
 
+<<<<<<< HEAD
+=======
+<?php 
+$id = $_SESSION['username'];
+
+$working_time = "08:30";
+$working_outtime = "16:30";
+
+$pick_year = "";
+$pick_month = "";
+$pick_day = "";
+$pick_class = "";
+$pick_name = "";
+
+$pick_year_sql = "";
+$pick_year_l_sql = "";
+$pick_month_sql = "";
+$pick_month_l_sql = "";
+$pick_day_sql = "";
+$pick_day_l_sql = "";
+$pick_class_sql = "";
+$pick_name_sql = "";
+
+if (!empty($_POST['pick_year'])) {
+  $pick_year = $_POST['pick_year'];
+  $pick_year_sql = "AND YEAR(var_time) = ".$pick_year;
+  $pick_year_l_sql = "AND YEAR(l_start) = ".$pick_year;
+}
+
+if (!empty($_POST['pick_month'])) {
+  $pick_month = $_POST['pick_month'];
+  $pick_month_sql = "AND MONTH(var_time) = ".$pick_month;
+  $pick_month_l_sql = "AND month(l_start) = ".$pick_month;
+}
+
+if (!empty($_POST['pick_day'])) {
+  $pick_day = $_POST['pick_day'];
+  $pick_day_sql = "AND day(var_time) = ".$pick_day;
+  $pick_day_l_sql = "AND day(l_start) = ".$pick_day;
+}
+
+if (!empty($_POST['pick_class'])) {
+  $pick_class = $_POST['pick_class'];
+  $pick_class_sql = "AND user_class = ".$pick_class;
+}
+>>>>>>> 659b144d579a02b8573a8ffdce8a342e7716dc00
 
 <br>
 <br>
@@ -72,7 +118,11 @@ $clock_on_time = strtotime($working_time);
 $clock_out_time = strtotime($working_outtime);
 
 $time_diff = round(abs($clock_in_time - $clock_on_time) / 60,2);
+<<<<<<< HEAD
 $time_outdiff = round(abs($clock_uout_time - $clock_out_time) / 60,2);
+=======
+$time_outdiff = round(abs($clock_in_time - $clock_out_time) / 60,2);
+>>>>>>> 659b144d579a02b8573a8ffdce8a342e7716dc00
 
 //遲到
 if ($time_diff >= 60) {
@@ -85,8 +135,13 @@ if ($time_diff >= 60) {
   $late = '遲到 '.$MMM.'分';
 }
 
+<<<<<<< HEAD
 //早退
 if ($time_outdiff >=  60) {
+=======
+
+if ($time_outdiff <= 60) {
+>>>>>>> 659b144d579a02b8573a8ffdce8a342e7716dc00
   $HHH = intval($time_outdiff/60);
   $MMM = $time_outdiff%60;
 
@@ -96,6 +151,7 @@ if ($time_outdiff >=  60) {
   $lateout = '早退 '.$MMM.'分';
 }
 
+<<<<<<< HEAD
 //加班
 if ($time_outdiff >=  60) {
   $HHH = intval($time_outdiff/60);
@@ -107,6 +163,8 @@ if ($time_outdiff >=  60) {
   $overtime = '加班 '.$MMM.'分';
 }
 
+=======
+>>>>>>> 659b144d579a02b8573a8ffdce8a342e7716dc00
 ?>
   <tr>
   <td><?php echo $v_row['user_phone'];?></td>
@@ -126,6 +184,18 @@ if ($time_outdiff >=  60) {
     echo $late;
   }
 
+<<<<<<< HEAD
+=======
+  ?>
+
+    <?php 
+  if(date('H:i:s',strtotime($v_row['var_last'])) > $working_outtime ) {
+    echo '準時下班';
+  }else {
+    echo $lateout;
+  }
+
+>>>>>>> 659b144d579a02b8573a8ffdce8a342e7716dc00
   ?>
 
     <?php 
