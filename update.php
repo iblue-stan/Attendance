@@ -12,10 +12,14 @@
         include_once("fixed.php");
         include("mysql_connect.inc.php");
         $user_phone = filter_input(INPUT_GET, ('user_phone'));
-        $sql = "SELECT * FROM user where user_phone ='$user_phone' ";
+        $sql = "SELECT * FROM user WHERE user_phone='$user_phone' ";
         $r = mysql_query($sql);
 
         while ($row = mysql_fetch_assoc($r)) {
+            $user_class = $row['user_class'];
+            $user_phone = $row['user_phone'];
+            $user_name = $row['user_name'];
+            $user_password = $row['user_pwd'];
             ?>
             <div class="row">
                 <form class="form-horizontal" role="form" name=form action='update_finish.php' method='POST'>
@@ -23,29 +27,29 @@
                         <tr>
                             <td><label class="control-label col-sm-3" for="inputSuccess3">Phone</label>
                                 <div class="col-xs-3">
-                                    <input type='text' placeholder=".col-xs-3" class='form-control' value= '<?php echo $row['user_phone']; ?>' name='phone'>
+                                    <input type='text' placeholder=".col-xs-3" class='form-control' value= '<?php echo $user_phone; ?>' name='phone'>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><label class="control-label col-sm-3" for="inputSuccess3">Name</label>
                                 <div class="col-xs-3">
-                                    <input type='text' class='form-control' value= '<?php echo $row['user_name']; ?>' name='name'>
+                                    <input type='text' class='form-control' value= '<?php echo $user_name; ?>' name='name'>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td><label class="control-label col-sm-3" for="inputSuccess3">Password</label>
-                                <div class="col-xs-3"><input type='text' class='form-control' value= '<?php echo $row['user_pwd']; ?>' name='pwd'></div>
+                                <div class="col-xs-3"><input type='text' class='form-control' value= '<?php echo $user_password; ?>' name='pwd'></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label class="control-label col-sm-3" for="inputSuccess3">Class</label>
                                 <div class="col-xs-3"><select name="class" class='form-control' ></dvi>
-                                        <option value="1" <?php if ($row['user_class'] == 1) echo "selected"; ?>>資訊部</option>
-                                        <option value="2" <?php if ($row['user_class'] == 2) echo "selected"; ?>>市場部</option>
-                                        <option value="3" <?php if ($row['user_class'] == 3) echo "selected"; ?>>行銷部</option>
+                                        <option value="1" <?php if ($user_class == 1) echo "selected"; ?>>資訊部</option>
+                                        <option value="2" <?php if ($user_class == 2) echo "selected"; ?>>市場部</option>
+                                        <option value="3" <?php if ($user_class == 3) echo "selected"; ?>>行銷部</option>
                                     </select>
                             </td>
                         </tr>

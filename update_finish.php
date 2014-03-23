@@ -11,8 +11,6 @@ $name = trim($_POST['name']);
 $pwd = trim($_POST['pwd']);
 $class = trim($_POST['class']);
 
-echo $class;
-
 if($_SESSION['username'] != null && $phone!= null &&$pwd != null  ){
 
         $sql ="UPDATE user SET user_name='$name', user_class= '$class', user_phone='$phone', user_pwd=$pwd where user_phone=$phone ";
