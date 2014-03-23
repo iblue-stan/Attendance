@@ -24,7 +24,3 @@ if($_SESSION['username'] != null) {
         echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
         exit();   
 }
-
-?>
-
-	
