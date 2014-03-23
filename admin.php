@@ -1,26 +1,15 @@
-<?php session_start(); ?>
-
+<?php 
+include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
+include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/cklv.php");
+?>
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Admin system</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
-
-  <?php
-  include_once("fixed.php");
-  include_once("cklv.php");
-  include("mysql_connect.inc.php");
-
-  ?>
-
-<br>
-<br>
-<br>
-
   <table class="table" >
     <thead>
       <tr>
@@ -31,19 +20,15 @@
         <th>權限</th>
         <th>入社日期</th>
         <th>動作</th>
-
       </tr>
     </thead>
 
     <tbody>
       <?php
-      if(isset($_SESSION['username'])){
+      if(isset($_SESSION['phone'])){
        $sql = "SELECT * FROM user ORDER BY user_permission";
        $result = mysql_query($sql);
-       while($row = mysql_fetch_assoc($result)) {
-
-      ?>
-
+       while($row = mysql_fetch_assoc($result)) { ?>
          <tr>
           <td><?php echo $row['id'] ?></td>
           <td><?php echo $row['user_phone'] ?></td>
@@ -58,15 +43,15 @@
 
           <td><?php echo $row['user_join'] ?></td>
           <td>
-              <a class="btn btn-default" href='update.php?user_phone=<?php echo $row['user_phone'] ?>'>Edit</a>
-              <a class="btn btn-danger" href='delete.php?user_phone=<?php echo $row['user_phone'] ?>'>Delete</a>
+              <a class="btn btn-default" href='admin/edit.php?user_phone=<?php echo $row['user_phone'] ?>'>Edit</a>
+              <a class="btn btn-danger" href='admin/delete.php?user_phone=<?php echo $row['user_phone'] ?>'>Delete</a>
               </td></tr>
 
       <?php
-          }
         }
+      }
 
-       ?>
+      ?>
       </tbody>
     </table>
 	

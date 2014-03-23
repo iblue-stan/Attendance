@@ -1,9 +1,6 @@
-<?php 
-$id = $_SESSION['username'];
+<?php // A simple search tool for filter
 
-$working_time = "08:30";
-$working_outtime = "16:30";
-
+// !! set the time that be a standard for work and off-work, could be add to database for flexbility
 $pick_year = "";
 $pick_month = "";
 $pick_day = "";
@@ -48,19 +45,20 @@ if (!empty($_POST['pick_name'])) {
 }
 
 ?>
-  <table class="table" >
+<table class="table" >
+  <form action = "leave_personal.php" method = post>
+    <tr><td>輸入日期：<input type="text" size="4" name="pick_year" value="<?php echo $pick_year ?>">年
+    <input type="text" size="4" name="pick_month" value="<?php echo $pick_month ?>">月
+    <input type="text" size="4" name="pick_day" value="<?php echo $pick_day ?>">日</td></tr>
 
-<form action = "leave_personal.php" method = post>
-<td>輸入日期：<input type="text" size="4" name="pick_year" value="<?php echo $pick_year ?>">年
-      <input type="text" size="4" name="pick_month" value="<?php echo $pick_month ?>">月
-     <input type="text" size="4" name="pick_day" value="<?php echo $pick_day ?>">日</td><tr>
-<td>輸入姓名：<input size="4" type="text" name="pick_name" value="<?php echo $pick_name ?>"></td><tr>
-<td>輸入部門：<select name="pick_class" >
+    <tr><td>輸入姓名：<input size="4" type="text" name="pick_name" value="<?php echo $pick_name ?>"></td></tr>
+
+    <tr><td>輸入部門：<select name="pick_class" >
       <option value="">全</option>
       <option value="1" <?php if($pick_class==1) echo "selected" ?>>資訊部</option>
       <option value="2" <?php if($pick_class==2) echo "selected" ?>>市場部</option>
       <option value="3" <?php if($pick_class==3) echo "selected" ?>>行銷部</option>
-        </select></td><tr>
-   <td> <input class="btn btn-default" type="submit" value="查詢"></td>
-</form>
-  </table >
+      </select></td></tr>
+      <tr><td><input class="btn btn-default" type="submit" value="查詢"></td></tr>
+  </form>
+</table>

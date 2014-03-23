@@ -1,9 +1,16 @@
-<?php session_start(); ?>
+<?php 
+include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
+include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
+include($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/mysql_connect.inc.php");
+
+?>
+
 <html>
-	<meta http-equiv = "content-Type" content="text/html; charset=utf-8">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<head>
+  <title>Board</title>
+</head>
 <body>
-<?php require_once("fixed.php");?>
+
 <center>
 <br>
 <br>
@@ -12,8 +19,7 @@
 <td width = 200>主題</td><td>內容</td><td width = 50>修改</td><td width = 50>刪除</td>
 <?php
     
-    include_once("mysql_connect.inc.php");
-    $sql = "select * from board";
+  $sql = "select * from board";
 	$r = mysql_query($sql);    
 
     while($s = mysql_fetch_assoc($r))  //資料自行判斷做到無值時自動停止
