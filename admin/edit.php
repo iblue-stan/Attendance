@@ -33,6 +33,10 @@ while ($row = mysql_fetch_assoc($r)){ ?>
 </select>
 </td></tr>
 
+<tr><td>Join day</td><td>
+<input type='text' class='form-control' value= '<?php echo  $row['user_join'];?>' name='join'>
+</td></tr>
+
 <input type="hidden" value=<?php echo $phone; ?> name='$phone'>
 
       <tr><td colspan=4><center>

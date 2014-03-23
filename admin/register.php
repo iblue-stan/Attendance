@@ -32,6 +32,11 @@ include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/cklv.php");
 			<option value="3">行銷部</option>
 		</select>
 	</td></tr>
+
+  <tr><td>Join day</td><td>
+  <input type='text' class='form-control' value= '<?php echo  $row['user_join'];?>' name='join'>
+  </td></tr>
+  
 	<tr><td colspan=4>
         <input class="btn btn-default" type="button" id="sendReg" value="送出">
         <input class="btn btn-default" type="reset" value="重設">

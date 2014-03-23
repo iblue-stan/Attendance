@@ -6,9 +6,10 @@ $phone = $_POST['phone'];
 $name = $_POST['name'];
 $pwd = $_POST['pwd'];
 $class = $_POST['class'];
+$join = $_POST['join'];
 
 if($_SESSION['phone'] != null && $phone!= null &&$pwd != null  ) {
-  $sql ="UPDATE user SET user_name='$name', user_class= '$class', user_phone='$phone', user_pwd=$pwd where user_phone = '$phone' ";
+  $sql ="UPDATE user SET user_name='$name', user_class= '$class', user_phone='$phone', user_pwd=$pwd, user_join='$join' where user_phone = '$phone' ";
   mysql_query($sql)  or die(mysql_error());
 
   if($_SESSION['phone'] != null) {
