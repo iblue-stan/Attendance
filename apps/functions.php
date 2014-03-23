@@ -1,18 +1,65 @@
 <?php 
+include("mysql_connect.inc.php");
+
+$pick_year = "";
+$pick_month = "";
+$pick_day = "";
+$pick_class = "";
+$pick_name = "";
+
+$pick_year_sql = "";
+$pick_year_l_sql = "";
+$pick_month_sql = "";
+$pick_month_l_sql = "";
+$pick_day_sql = "";
+$pick_day_l_sql = "";
+$pick_class_sql = "";
+$pick_name_sql = "";
+
+if (!empty($_POST['pick_year'])) {
+  $pick_year = $_POST['pick_year'];
+  $pick_year_sql = "AND YEAR(var_time) = ".$pick_year;
+  $pick_year_l_sql = "AND YEAR(l_start) = ".$pick_year;
+}
+
+if (!empty($_POST['pick_month'])) {
+  $pick_month = $_POST['pick_month'];
+  $pick_month_sql = "AND MONTH(var_time) = ".$pick_month;
+  $pick_month_l_sql = "AND month(l_start) = ".$pick_month;
+}
+
+if (!empty($_POST['pick_day'])) {
+  $pick_day = $_POST['pick_day'];
+  $pick_day_sql = "AND day(var_time) = ".$pick_day;
+  $pick_day_l_sql = "AND day(l_start) = ".$pick_day;
+}
+
+if (!empty($_POST['pick_class'])) {
+  $pick_class = $_POST['pick_class'];
+  $pick_class_sql = "AND user_class = ".$pick_class;
+}
+
+if (!empty($_POST['pick_name'])) {
+  $pick_name = $_POST['pick_name'];
+  $pick_name_sql = "AND user_name = '".$pick_name."'";
+}
+
 
 // 出席狀況
-function calWorkDiff($working_time, $working_outtime, $per) {
+function calWorkDiff($working_time, $working_outtime, $phone) {
+  $pick_phone = (empty($phone)? "" : "And user_phone='$phone'");
+
   $sql = "SELECT user_phone, user_name,user_class, var_time
   , MIN(var_time) AS var_first, MAX(var_time) AS var_last
   FROM var INNER JOIN user ON var.id=user.id
-  WHERE user_permission = $per
-  $pick_name_sql
-  $pick_class_sql
-  $pick_year_sql
-  $pick_month_sql
-  $pick_day_sql
+  WHERE user_permission = 2
+  $pick_phone
+  {$GLOBALS['pick_name_sql']}
+  {$GLOBALS['pick_class_sql']}
+  {$GLOBALS['pick_year_sql']}
+  {$GLOBALS['pick_month_sql']}
+  {$GLOBALS['pick_day_sql']}
   GROUP BY user_phone,YEAR(var_time), MONTH(var_time), DAY(var_time)";
-
 
   // table start
   echo '<table class="table" >
@@ -109,15 +156,18 @@ function calWorkDiff($working_time, $working_outtime, $per) {
 
 
 // 請假狀況
-function takeLeave($per) {
+function takeLeave($phone) {
+  $pick_phone = (empty($phone)? "" : "And user_phone='$phone'");
+
   $sql_l = "SELECT *
     FROM vk INNER JOIN user ON vk.id=user.id
-    WHERE user_permission = $per
-    $pick_name_sql
-    $pick_class_sql
-    $pick_year_l_sql
-    $pick_month_l_sql
-    $pick_day_l_sql
+    WHERE user_permission = 2
+    $pick_phone
+    {$GLOBALS['pick_name_sql']}
+    {$GLOBALS['pick_class_sql']}
+    {$GLOBALS['pick_year_l_sql']}
+    {$GLOBALS['pick_month_l_sql']}
+    {$GLOBALS['pick_day_l_sql']}
     ";
 
   $leave = mysql_query($sql_l);
@@ -179,11 +229,56 @@ function takeLeave($per) {
 
     echo "<td>".$time_intervel."</td>";
 
-    echo "<td><a href=leave_check.php?pk=".$l_row['pk'].">";
-         if($l_row['l_check'] == 1) echo "O";
-         elseif ($l_row['l_check'] == 0) echo "X";
-         echo "</a></td></td></tr>";
+    if ($_SESSION['permission'] == 1) {
+
+      echo "<td><a href=leave_check.php?pk=".$l_row['pk'].">";
+      if($l_row['l_check'] == 1) echo "O";
+      elseif ($l_row['l_check'] == 0) echo "X";
+      echo "</a></td></td></tr>";
+
+    }elseif ($_SESSION['permission'] == 2){
+      echo "<td>";
+      if($l_row['l_check'] == 1) echo "O";
+      elseif ($l_row['l_check'] == 0) echo "X";
+      echo "</td></tr>";
+    }
 
   }  
   echo "</tbody></table>";
+}
+
+function calTrial($phone) {
+
+  $sql = "SELECT user_join FROM user WHERE user_phone=$phone";
+  $result = mysql_query($sql);
+  $fetch = mysql_fetch_assoc($result);
+
+  $join = strtotime($fetch['user_join']);
+  $sepecial = "";
+  $time_diff = round(abs($join - strtotime(date('Y-m-d')))/60/60/24/365, 0);
+
+  if($time_diff < 10) { 
+  if($time_diff >= 1 && $time_diff < 3) $sepecial = 7;
+  elseif($time_diff >= 3 && $time_diff < 5) $sepecial = 10;
+  elseif($time_diff >= 5 && $time_diff < 10) $sepecial = 14; 
+  }else $sepecial =  ($time_diff - 9) + 14 ;
+
+  if ($sepecial > 30) $sepecial = 30;
+
+  return $sepecial;
+}
+
+function calTotal($phone) {
+  $sql_s = "SELECT timestampdiff(hour,`l_start`,`l_end`) as diff 
+  from vk 
+  where `l_condition` = 6 AND l_phone=$phone AND l_check=1";
+
+  $total = "";
+  $special_q = mysql_query($sql_s);
+  while ( $s_row = @mysql_fetch_assoc($special_q) ){
+    $total += $s_row['diff'];
+  }
+  $total = round($total / 24,0);
+
+  return $total;
 }

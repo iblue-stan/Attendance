@@ -16,6 +16,7 @@ if($phone != null && $pw != null && $row['user_phone'] == $phone && $row['user_p
   $_SESSION['phone'] = $phone;
 	$_SESSION['loginname'] = $row['user_name'];
 	$_SESSION['id'] = $row['id'];
+  $_SESSION['permission'] = $row['user_permission'];
     
     if ($row['user_permission'] == 1){
          $_SESSION['user_permission'] = $row['user_permission'];

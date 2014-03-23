@@ -6,7 +6,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/cklv.php");
 <!doctype html>
 <html>
 <head>
-  <title>Admin system</title>
+  <title>出缺勤管理系統</title>
 </head>
 
 <body>

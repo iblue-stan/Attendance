@@ -1,55 +1,14 @@
-<?php // A simple search tool for filter
-
-// !! set the time that be a standard for work and off-work, could be add to database for flexbility
-$pick_year = "";
-$pick_month = "";
-$pick_day = "";
-$pick_class = "";
-$pick_name = "";
-
-$pick_year_sql = "";
-$pick_year_l_sql = "";
-$pick_month_sql = "";
-$pick_month_l_sql = "";
-$pick_day_sql = "";
-$pick_day_l_sql = "";
-$pick_class_sql = "";
-$pick_name_sql = "";
-
-if (!empty($_POST['pick_year'])) {
-  $pick_year = $_POST['pick_year'];
-  $pick_year_sql = "AND YEAR(var_time) = ".$pick_year;
-  $pick_year_l_sql = "AND YEAR(l_start) = ".$pick_year;
-}
-
-if (!empty($_POST['pick_month'])) {
-  $pick_month = $_POST['pick_month'];
-  $pick_month_sql = "AND MONTH(var_time) = ".$pick_month;
-  $pick_month_l_sql = "AND month(l_start) = ".$pick_month;
-}
-
-if (!empty($_POST['pick_day'])) {
-  $pick_day = $_POST['pick_day'];
-  $pick_day_sql = "AND day(var_time) = ".$pick_day;
-  $pick_day_l_sql = "AND day(l_start) = ".$pick_day;
-}
-
-if (!empty($_POST['pick_class'])) {
-  $pick_class = $_POST['pick_class'];
-  $pick_class_sql = "AND user_class = ".$pick_class;
-}
-
-if (!empty($_POST['pick_name'])) {
-  $pick_name = $_POST['pick_name'];
-  $pick_name_sql = "AND user_name = '".$pick_name."'";
-}
-
-?>
 <table class="table" >
-  <form action = "leave_personal.php" method = post>
+  <?php  if ($_SESSION['permission'] == 1) { ?>
+  <form action = "../admin/attendance.php" method = post>
+  <?php }elseif ($_SESSION['permission'] == 2) { ?>
+  <form action = "member.php" method = post>
+  <?php } ?>
     <tr><td>輸入日期：<input type="text" size="4" name="pick_year" value="<?php echo $pick_year ?>">年
     <input type="text" size="4" name="pick_month" value="<?php echo $pick_month ?>">月
     <input type="text" size="4" name="pick_day" value="<?php echo $pick_day ?>">日</td></tr>
+    
+    <?php  if ($_SESSION['permission'] == 1) { ?>
 
     <tr><td>輸入姓名：<input size="4" type="text" name="pick_name" value="<?php echo $pick_name ?>"></td></tr>
 
@@ -59,6 +18,8 @@ if (!empty($_POST['pick_name'])) {
       <option value="2" <?php if($pick_class==2) echo "selected" ?>>市場部</option>
       <option value="3" <?php if($pick_class==3) echo "selected" ?>>行銷部</option>
       </select></td></tr>
+    
+    <?php } ?>
       <tr><td><input class="btn btn-default" type="submit" value="查詢"></td></tr>
   </form>
 </table>

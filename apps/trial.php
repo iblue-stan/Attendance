@@ -1,15 +1,10 @@
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <?php
-date_default_timezone_set('Asia/Taipei'); 
-
 
 include("mysql_connect.inc.php");
 
-$user_phone=$_SESSION['username'];
+$phone= $_SESSION['phone'];
 
-$sql = "SELECT user_join FROM user WHERE user_phone=$user_phone";
+$sql = "SELECT user_join FROM user WHERE user_phone=$phone";
 $result = mysql_query($sql);
 $fetch = mysql_fetch_assoc($result);
 
