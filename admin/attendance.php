@@ -7,7 +7,7 @@ include("../apps/mysql_connect.inc.php"); ?>
 <?php include_once("../apps/functions.php"); ?>
   <table class="table" >
     <td><?php include_once("../apps/leave.php");?></td>
-    <td><?php include_once("add_var.php");?></td>
+    <td><?php //include_once("add_var.php");?></td>
   </table>
 
 

@@ -1,3 +1,9 @@
+<head>
+<script src="../assets/js/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/css/jquery.datetimepicker.css"/ >
+  
+</head>
+
 <form name="form" method="post" action="add_var_fin.php">
 	<table class="table" >
 
@@ -11,21 +17,23 @@
 	</table>
 </form>
 
-<script>$('#datetimepicker1').datetimepicker({
+
+
+<script>
+$('#datetimepicker1').datetimepicker({
   minDate:'-1970/01/01',
   maxDate:'+1970/01/01',
   allowTimes:[
   '8:00', '9:00', '10:00','11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
   '17:00', '18:00'
   ]
-});</script>
 
-<script>$('#datetimepicker2').datetimepicker({
+$('#datetimepicker2').datetimepicker({
   minDate:'-1970/01/01',
   maxDate:'+1970/01/01',
   allowTimes:[
   '8:00', '9:00', '10:00','11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
   '17:00', '18:00'
   ]
-});</script>
-
+});
+</script>

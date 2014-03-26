@@ -18,7 +18,7 @@ include("../apps/mysql_connect.inc.php"); ?>
     <tbody>
       <?php
       if(isset($_SESSION['phone'])){
-       $sql = "SELECT * FROM user ORDER BY user_permission";
+       $sql = "SELECT * FROM user ORDER BY user_permission, user_join";
        $result = mysql_query($sql);
        while($row = mysql_fetch_assoc($result)) { ?>
          <tr>
