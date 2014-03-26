@@ -1,18 +1,6 @@
-<?php 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/cklv.php");
-?>
 
-<!doctype html>
-<html lang="en">
-<head>
-	<title>untitled</title>
-</head>
-<body>
 <div class='container'>
   
-
 <form name="regForm" id="regForm" method="post">
 	<table class="table" >
 	<tr><td width='15%'>姓名</td><td ><input type="text" class='form-control' name="name"></td></tr>

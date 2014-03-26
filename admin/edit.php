@@ -1,20 +1,7 @@
-<?php 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/cklv.php");
-?>
-
-<!doctype html>
-<html lang="en">
-<head>
-  <title>Modify/Update</title>
-
-</head>
-<body>
- 
 <div class='container'>
 <?php 
-$phone = $_GET['user_phone'];
+include("../apps/mysql_connect.inc.php");
+$phone = $_GET['phone'];
 $sql = "SELECT * FROM user where user_phone ='$phone' ";
 $r = mysql_query($sql);
 
@@ -46,9 +33,6 @@ while ($row = mysql_fetch_assoc($r)){ ?>
 
     </table>
   </form>
-<h5>
-<a class="btn btn-primary" href='../admin.php' id="backTO" >Back</a>
-</h5>
 </div>
 <?php 
 
