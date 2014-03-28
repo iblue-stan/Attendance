@@ -6,43 +6,36 @@ include("mysql_connect.inc.php");
 
 <!doctype html>
 <html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-  <title>Personal leave</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-</head>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+		<title>Personal leave</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+			<?php   include_once("fixed.php");  ?>
+			<br />
+			<br />
+			<br />
+			<table class="table" >
+				<td><?php include_once("leave.php"); ?></td>
+				<td> <?php include_once("re_var.php"); ?></td>
+			</table>
 
-<body>
-  <?php   include_once("fixed.php");  ?>
-<a class="btn btn-primary" href='admin.php' role='botton'>Back</a>
-
-
-<br>
-<br>
-<br>
-
-  <table class="table" >
-    
- <td> 
-  <?php include_once("leave.php"); ?>
-</td>
-
- <td> <?php include_once("re_var.php"); ?></td>
-</table>
-
-<table class="table" >
-        <thead>
-          <tr><th>出席狀況</th></tr>
-          <tr>
-            <th>電話</th>
-            <th>姓名</th>
-            <th>部門</th>
-            <th>上班時間</th>
-            <th>下班時間</th>
-            <th>出席狀態</th>
-          </tr>
-        </thead>
-        <tbody>
+			<table class="table" >
+				<thead>
+					<tr>
+						<th>出席狀況</th>
+					</tr>
+					<tr>
+						<th>電話</th>
+						<th>姓名</th>
+						<th>部門</th>
+						<th>上班時間</th>
+						<th>下班時間</th>
+						<th>出席狀態</th>
+					</tr>
+				</thead>
+				<tbody>
 
 <?php 
 
@@ -56,8 +49,6 @@ $pick_year_sql
 $pick_month_sql
 $pick_day_sql
 GROUP BY user_phone,YEAR(var_time), MONTH(var_time), DAY(var_time)";
-
-
 
 $var = mysql_query($sql);
 while ( $v_row = @mysql_fetch_assoc($var) ){
@@ -108,38 +99,35 @@ if ($time_outdiff >=  60) {
 }
 
 ?>
-  <tr>
-  <td><?php echo $v_row['user_phone'];?></td>
-  <td><?php echo $v_row['user_name'];?></td>
-  <td><?php 
-    if ($v_row['user_class'] == 1) echo "資訊部";
-    if ($v_row['user_class'] == 2) echo "市場部";
-    if ($v_row['user_class'] == 3) echo "行銷部";?>
-  </td>
-  <td><?php echo $var_first ;?></td>
-  <td><?php echo $var_last ;?></td>
-  <td>
- <?php 
+					<tr>
+						<td><?php echo $v_row['user_phone'];?></td>
+						<td><?php echo $v_row['user_name'];?></td>
+						<td>
+						<?php 
+							if ($v_row['user_class'] == 1) echo "資訊部";
+							if ($v_row['user_class'] == 2) echo "市場部";
+							if ($v_row['user_class'] == 3) echo "行銷部";?>
+						</td>
+						<td><?php echo $var_first ;?></td>
+						<td><?php echo $var_last ;?></td>
+						<td>
+<?php 
   if(date('H:i:s',strtotime($v_row['var_first'])) <= $working_time ) {
     echo '準時上班';
   }else {
     echo $late;
   }
+?>
 
-  ?>
-
-    <?php 
+<?php 
   if(date('H:i:s',strtotime($v_row['var_last'])) >= $working_outtime ) {
     echo $overtime;
   }else {
     echo $lateout;
   }
-
-  ?>
-
-  
-  </td>
-  </tr>
+?>
+						</td>
+					</tr>
 
 <?php 
 }  
@@ -157,26 +145,26 @@ $leave = mysql_query($sql_l);
 
 
 ?>
-        </tbody>
-</table>
+				</tbody>
+			</table>
 
 <!-- leave table -->
 
-<table class="table" >
-        <thead>
-          <tr><th>請假狀況|生理假每月1次</th></tr>
-          <tr>
-            <th>電話</th>
-            <th>姓名</th>
-            <th>部門</th>
-            <th>請假期間</th>
-            <th>請假事由</th>
-            <th>備注</th>
-            <th>請假時數</th>
-            <th>審核</th>
-          </tr>
-        </thead>
-        <tbody>
+			<table class="table" >
+				<thead>
+					<tr><th>請假狀況|生理假每月1次</th></tr>
+					<tr>
+						<th>電話</th>
+						<th>姓名</th>
+						<th>部門</th>
+						<th>請假期間</th>
+						<th>請假事由</th>
+						<th>備注</th>
+						<th>請假時數</th>
+						<th>審核</th>
+					</tr>
+				</thead>
+				<tbody>
 
 <?php 
 
@@ -224,13 +212,13 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
       <?php if($l_row['l_check'] == 1) echo "O";
             elseif ($l_row['l_check'] == 0) echo "X";
       ?>
-      </a></td>
-  </tr>
+					</a></td>
+					</tr>
 
 <?php 
 }  
 ?>
-       </tbody>
-</table>
-</body>
+				</tbody>
+			</table>
+	</body>
 </html>

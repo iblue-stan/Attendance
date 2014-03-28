@@ -8,7 +8,7 @@ $db_name = "qr";
 //資料庫管理者帳號
 $db_user = "root";
 //資料庫管理者密碼
-$db_passwd = "1234";
+$db_passwd = "";
 
 //對資料庫連線
 if(!@mysql_connect($db_server, $db_user, $db_passwd))

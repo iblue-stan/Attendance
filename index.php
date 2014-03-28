@@ -18,12 +18,9 @@
             ?>
             <div class="container">
                 <form name="form" method="post" action="connect.php" class="form-signin" role="form">
-                    <h2 class="form-signin-heading"><center>會員登入</center></h2>
+                    <h2 class="form-signin-heading"><center>考 勤 系 統</center></h2>
                     <input type="text" name="id" class="form-control" placeholder="User ID" required autofocus>
                     <input type="password" name="pw" id="pw" class="form-control" placeholder="Password" required>
-                    <label class="checkbox">
-                        <input type="checkbox" value="remember-me"> 記住我
-                    </label>
                     <label class="checkbox">
                         <input type="checkbox" id="password" name="password" onclick="pwdshow(this);">顯示/隱藏密碼</input> |
                         <a href="mailto:admin@gmail.com?subject=密碼重設" style="text-decoration:none;">忘記密碼?</a>

@@ -2,7 +2,6 @@
 session_start();
 date_default_timezone_set('Asia/Taipei');
 ?>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php
@@ -21,16 +20,18 @@ if ($phone != null && $pw != null && $row['user_phone'] == $phone && $row['user_
 
     if ($row['user_permission'] == 1) {
         $_SESSION['user_permission'] = $row['user_permission'];
-        echo '管理員登入成功!';
+		include_once("fixed.php");
+        echo '<br /><br /><br /><center>管理員登入成功!</center>';
         echo '<meta http-equiv=REFRESH CONTENT=1;url=admin.php>';
     }
 
     if ($row['user_permission'] == 2) {
         $_SESSION['user_permission'] = $row['user_permission'];
-        echo "使用者登入成功";
+        include_once("float.php");
+        echo "<br /><br /><br /><center>使用者登入成功</center>";
         echo '<meta http-equiv=REFRESH CONTENT=1;url=member.php>';
     }
 } else {
-    echo '登入失敗!';
+    echo '<br /><br /><br />登入失敗!';
     echo '<meta http-equiv=REFRESH CONTENT=1;url=index.php>';
 }
