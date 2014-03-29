@@ -26,19 +26,24 @@ date_default_timezone_set('Asia/Taipei');
 <input type = hidden name = var_phone value = <?php echo $id; ?>>
 <br /><br /><br />
 
-	<form action = "member.php" method = "post">
+	<form action = "member.php" method = "get">
 		輸入日期： 
 		    <input type="text" name="keyword" id="datetimepicker">
 		    <input class="btn btn-default" type="submit" value="送出">
 	</form>
 <?php
 	$keyword = "";
-	if(isset($_GET['keyword']))
+	if(isset($_GET['keyword']) && $_GET['keyword']!="")
 	{
-	$keyword = trim ($_GET['keyword']);//去前後空格
+	 $keyword = trim ($_GET['keyword']);//去前後空格
+	 $sql ="select user_phone, user_name,user_class,MIN(var_time) AS var_first, MAX(var_time) AS var_last from var join user where var.id = user.id and var.var_time >= '$keyword 00:00:00' and var.var_time <='$keyword 23:59:59'";
+     $sql_l = "SELECT * FROM vk INNER JOIN user ON vk.id=user.id WHERE user.user_phone = $id and vk.l_start >= '$keyword 00:00:00' and vk.l_start <='$keyword 23:59:59'";
+	}else
+	{$sql = "SELECT user_phone, user_name, user_class, MIN(var_time) AS var_first, MAX(var_time) AS var_last
+             FROM var INNER JOIN user ON var.id=user.id 
+		     WHERE user_phone = $id GROUP BY user_phone,date(var_time)";
+	 $sql_l = "SELECT * FROM vk INNER JOIN user ON vk.id=user.id WHERE user_phone = $id";
 	}
-
-   //$sql = "select * from var where var_time like '%$keyword%' and id =$id";
 ?>
 
 	<table class="table" >
@@ -56,15 +61,11 @@ date_default_timezone_set('Asia/Taipei');
       <tbody>
 
 <?php
-	/*JOIN user(user_phone, user_name,user_class) + var(var_time) on "user.id=var.id"
-	       where {user(user_permission=2)  +  [user(user_phone=loginID)+var(var_time)]} */
-	$sql = "SELECT user_phone, user_name,user_class, var_time
-           , MIN(var_time) AS var_first, MAX(var_time) AS var_last
-           FROM var INNER JOIN user ON var.id=user.id 
-		   WHERE user_permission = 2 AND user_phone = $id GROUP BY user_phone,date(var_time)";
 	$r = mysql_query ($sql);
 	while( $v_row= mysql_fetch_assoc($r) )
     { 
+	  if(empty($v_row['user_phone'])) echo "<tr><td>查無資料";
+	  else{
 	  $var_first=date('Y-m-d H:i',strtotime($v_row['var_first']));//上班時間
 	  $var_last=date('Y-m-d H:i',strtotime($v_row['var_last']));//下班時間
 	  $clock_in_time = strtotime(date('H:i',strtotime($v_row['var_first'])));//上班打卡時間
@@ -126,6 +127,7 @@ date_default_timezone_set('Asia/Taipei');
 		}else {
 			echo "<td>".$lateout;
 		}
+	  }
 	}
 	echo "</tbody></table>";
 ?>	
@@ -133,7 +135,6 @@ date_default_timezone_set('Asia/Taipei');
 <!-- leave table -->
 
 <?php 
-	$sql_l = "SELECT * FROM vk INNER JOIN user ON vk.id=user.id WHERE user_phone = $id";
 	$leave = mysql_query($sql_l);
 ?>
 
@@ -171,7 +172,6 @@ date_default_timezone_set('Asia/Taipei');
         <tbody>
 
 <?php 
-
 while ( $l_row = @mysql_fetch_assoc($leave) ){
   $l_start = date('Y-m-d H:i',strtotime($l_row['l_start']));
 //--
@@ -185,12 +185,12 @@ while ( $l_row = @mysql_fetch_assoc($leave) ){
   $short_end = date('Y-m-d-H:i',strtotime($l_row['l_end']));
 
 //--time to day
-  if ($time_intervel >= 24) {
-  $DDD = intval($time_intervel/24);
-  $HHH = $time_intervel%24;
+  if ($time_intervel >= 10) {
+  $DDD = intval($time_intervel/10);
+  $HHH = $time_intervel%10;
   $time_intervel = $DDD."天".$HHH."小時";
   }else {
-  $HHH = $time_intervel%24;
+  $HHH = $time_intervel%10;
   $time_intervel = $HHH."小時";
   }
 
