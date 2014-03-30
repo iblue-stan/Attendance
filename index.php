@@ -6,7 +6,7 @@
 <body>
 
 <?php
-if(empty($_SESSION['username'])){ ?>
+if(empty($_SESSION['permission'])){ ?>
 
 <div class="container">
   <form name="form" method="post" action="apps/connect.php" class="form-signin" role="form">
@@ -22,7 +22,10 @@ if(empty($_SESSION['username'])){ ?>
   </form>
 </div>	
 	
-<?php } ?>
+<?php 
+
+
+} ?>
 
 </body>
 </html>

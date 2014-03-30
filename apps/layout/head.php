@@ -1,6 +1,7 @@
 <?php 
 session_start();
 date_default_timezone_set('Asia/Taipei'); ?>
+
 <base href="index.php" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 

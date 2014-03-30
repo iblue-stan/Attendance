@@ -27,3 +27,14 @@
     </div>
       <!-- Main component for a primary marketing message or call to action -->
 	  <!-- /container -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>管理者</title>
+</head>
+<body>
+  
+</body>
+</html>

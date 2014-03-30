@@ -1,8 +1,3 @@
-<?php 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
-
-?>
 <html>
 <head>
 <title>後端管理者</title>

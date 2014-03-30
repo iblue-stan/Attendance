@@ -231,7 +231,7 @@ function takeLeave($phone) {
 
     if ($_SESSION['permission'] == 1) {
 
-      echo "<td><a href=leave_check.php?pk=".$l_row['pk'].">";
+      echo "<td><a href=leave_check.php pk=".$l_row['pk']." class='ox' onClick='return false;'>";
       if($l_row['l_check'] == 1) echo "O";
       elseif ($l_row['l_check'] == 0) echo "X";
       echo "</a></td></td></tr>";
@@ -243,7 +243,7 @@ function takeLeave($phone) {
       echo "</td></tr>";
     }
 
-  }  
+  } 
   echo "</tbody></table>";
 }
 

@@ -21,7 +21,7 @@ if($phone != null && $pw != null && $row['user_phone'] == $phone && $row['user_p
     if ($row['user_permission'] == 1){
          $_SESSION['user_permission'] = $row['user_permission'];
         echo '管理員登入成功!';
-        echo '<meta http-equiv=REFRESH CONTENT=1;url="../admin.php">';
+        echo '<meta http-equiv=REFRESH CONTENT=1;url="../admin/index.php">';
     }
 
     if ($row['user_permission'] == 2){

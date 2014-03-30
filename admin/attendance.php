@@ -12,13 +12,17 @@ include("../apps/mysql_connect.inc.php"); ?>
 
 
 <div id='reslut'>
-<?php calWorkDiff("08:30", "16:30", ''); // prama_1:上班時間, 2:下班, 3:指定員工?>
-<?php takeLeave(''); // prama_1:指定員工?>
+  <?php calWorkDiff("08:30", "16:30", ''); // prama_1:上班時間, 2:下班, 3:指定員工?>
+  
+  <div id="leave">
+    <?php takeLeave(''); // prama_1:指定員工?>
+  </div>
 </div>
 
 
 <script> 
 $(document).ready(function() { 
+  // send your check request
   $('#sendLeave').click(function() { 
     var leaveForm = $("#leaveForm").serialize();
     // $.post("attendance.php", leaveForm, function(data) {
@@ -27,6 +31,19 @@ $(document).ready(function() {
       $('#reslut').html(data);
     });
   }); 
+
+  // ajax your OOXX
+  $('.ox').click(function() { 
+    var pk = $(this).attr('pk'); 
+    alert(pk);
+    $.get('leave_check.php', pk, function(data) {
+      // $('#leave').html(data);
+      alert(data);
+    });
+
+  }); 
+
+
 }); 
 </script>
 

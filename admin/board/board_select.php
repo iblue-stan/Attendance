@@ -1,8 +1,5 @@
 <?php 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/head.php"); 
-include_once($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/layout/fixed.php");
-include($_SERVER['DOCUMENT_ROOT']."/Attendance/apps/mysql_connect.inc.php");
-
+include("../../apps/mysql_connect.inc.php");
 ?>
 
 <html>
