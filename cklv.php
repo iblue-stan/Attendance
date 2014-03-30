@@ -7,20 +7,17 @@ include("mysql_connect.inc.php");
 
 //判斷帳號與密碼是否為空白
 //以及MySQL資料庫裡是否有這個--管理員
-if($_SESSION['username'] != null) {
-    
-    if ($_SESSION['user_permission'] == 1){
-       
-    }
+if (!empty($_SESSION['username'])) {
 
-    elseif ($_SESSION['user_permission'] == 2){
-		echo '<h1><center>您沒有權限!</center></h1>';
-		echo '<meta http-equiv=REFRESH CONTENT=2;url=member.php>';
-		exit();
+    if ($_SESSION['user_permission'] == 1) {
+        
+    } elseif ($_SESSION['user_permission'] == 2) {
+        echo '<h1><center>您沒有權限!</center></h1>';
+        echo '<meta http-equiv=REFRESH CONTENT=2;url=member.php>';
+        exit();
     }
-
-}else{
-		echo '<h1><center>登入失敗!</center></h1>';
-        echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
-        exit();   
+} else {
+    echo '<h1><center>登入失敗!</center></h1>';
+    echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
+    exit();
 }

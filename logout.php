@@ -8,4 +8,3 @@ unset($_SESSION['id']);
 unset($_SESSION['user_permission']);
 echo '登出中......';
 echo '<meta http-equiv=REFRESH CONTENT=0;url=index.php>';
-?>
